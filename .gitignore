@@ -5,3 +5,7 @@
 Homestead.json
 Homestead.yaml
 .env
+public/css
+public/js
+public/logo/*.jpg
+public/img/products/

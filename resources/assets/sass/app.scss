@@ -1,9 +1,69 @@
-
-// Fonts
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
-
-// Variables
 @import "variables";
 
-// Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+@import "helpers";
+@import "menu";
+@import "box";
+@import "invoice";
+
+.actions {
+	width: 1%;
+	white-space: nowrap;
+}
+
+.separate-col {
+	border-right: 1px solid #eee;
+}
+
+.table {
+	tbody {
+		tr {
+			td {
+				vertical-align: middle;
+			}
+		}
+	}
+}
+
+.navbar {
+	.dropdown {
+		.dropdown-menu {
+			min-width: 200px;
+
+			li > a {
+				padding: 8px 20px;
+				transition: .2s ease-in-out;
+
+				&:hover {
+					color: white;
+					background-color: #2ab0ed;
+				}
+			}
+
+			.dropdown-header {
+				color: #158bc1 !important;
+			}
+		}
+	}
+}
+
+.dash {
+	.box {
+		min-height: 300px;
+	}
+}
+
+.brand {
+	height: 40px;
+	margin-top: -8px;
+}
+
+.nav > li.active > a {
+	background: #2ab0ed;
+	color: white;
+}
+
+.nav > .nav-static {
+	padding: 10px 15px;
+}

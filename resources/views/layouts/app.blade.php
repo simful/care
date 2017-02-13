@@ -11,9 +11,8 @@
     <title>Klinik</title>
 
     <!-- Styles -->
-
-    <link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link href="/css/font-awesome.css" rel="stylesheet">
+    <link href="/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/app.css" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
@@ -24,9 +23,10 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-inverse navbar-static-top" style="text-align: center; margin-bottom: 5px;">
+        <nav class="navbar navbar-default navbar-fixed-top" id="main-menu">
             <div class="container-fluid">
                 <div class="navbar-header">
+
                     <!-- Collapsed Hamburger -->
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
                         <span class="sr-only">Toggle Navigation</span>
@@ -34,89 +34,219 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
+
+                    <!-- Branding Image -->
+                    <a class="navbar-brand" href="{{ url('/') }}">
+                        <img src="/img/simful-logo.png" class="brand">
+                    </a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                    <li><a href="/"><span class="fa fa-home"></span> Beranda</a></li>
-                    @if (Auth::check())
-                    <li>
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="fa fa-users"></span> Pasien <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="">Pasien Baru</a></li>
+                        &nbsp;
                     </ul>
-                    </li>
-                    <li>
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="fa fa-glass"></span> Apotik <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="">Penjualan Langsung</a></li>
-                    </ul>
-                    </li>
-                    <li>
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="fa fa-book"></span> Administrasi <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="">Surat Sakit</a></li>
-                    </ul>
-                    </li>
-
-                    <li>
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="fa fa-bar-chart"></span> Laporan <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="">Keuangan</a></li>
-                    </ul>
-                    </li>
-
-                    @endif
-                    </ul>
-
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
-                        @if (Auth::guest())
-                            <li><a href="{{ url('/login') }}">Login</a></li>
-                            <li><a href="{{ url('/register') }}">Register</a></li>
-                        @else
-                        <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="fa fa-briefcase"></span> Master Data<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                        <li><a href="">Dokter</a></li>
-                        </ul>
-                        </li>
-                        <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="fa fa-wrench"></span> Setting <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="">General</a></li>
-                                <li class="divider" role="separator"></li>
-                                <li><a href="">About</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="fa fa-user"></span> 
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
+                    @if (Auth::check())
+                        <ul class="nav navbar-nav navbar-right">
+                            <!-- Authentication Links -->
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    <i class="fa fa-user-md"></i>Dokter <span class="caret"></span>
+                                </a>
 
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="">Profil</a></li>
-                                <li class="divider" role="separator"></li>
-                                <li>
-                                    <a href="{{ url('/logout') }}"
-                                        onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                        Logout
-                                    </a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="#">Jadwal Kunjungan Pasien</a>
+                                    </li>
 
-                                    <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                                        {{ csrf_field() }}
-                                    </form>
-                                </li>
-                            </ul>
+                                    <li>
+                                        <a href="#">Assess Pasien</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#">Resep</a>
+                                    </li>
+                                </ul>
                             </li>
-                        @endif
-                    </ul>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    <i class="fa fa-handshake-o"></i>
+                                    Resepsionis <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="#">Pendaftaran</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#">Antrian Pasien</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#">Surat Sakit</a>
+                                    </li>
+
+                                    <li class="divider"></li>
+
+                                    <li>
+                                        <a href="#">Pengambilan Obat</a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    <i class="fa fa-money"></i>
+                                    Keuangan <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu" role="menu">
+
+                                    <li class="dropdown-header">Transaksi</li>
+                                    <li>
+                                        <a href="#">Sales Invoices</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#">Purchase Orders</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#">Expenses</a>
+                                    </li>
+
+                                    <li class="divider"></li>
+                                    <li class="dropdown-header">Accounting</li>
+                                    <li>
+                                        <a href="#">Buku Besar</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#">Jurnal</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#">Pajak</a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    <i class="fa fa-archive"></i>
+                                    Data & Inventaris <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="#">Data Pasien</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#">Data Dokter & Staff</a>
+                                    </li>
+
+                                    <li class="divider"></li>
+
+                                    <li>
+                                        <a href="#">Stok Obat</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#">Stok Alat Kesehatan</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    <i class="fa fa-line-chart"></i>
+                                    Laporan <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="{{ url('reports/sales') }}">Sales Report</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{{ url('reports/purchases') }}">Purchase Report</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{{ url('reports/expenses') }}">Expense Report</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{{ url('reports/stock') }}">Stock Report</a>
+                                    </li>
+
+                                    <li class="divider"></li>
+
+                                    <li>
+                                        <a href="{{ url('reports/receivables') }}">Receivables Report</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{{ url('reports/payables') }}">Payables Report</a>
+                                    </li>
+
+                                    <li class="divider"></li>
+
+                                    <li>
+                                        <a href="{{ url('reports/income-statement') }}">Income Statement</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{{ url('reports/trial-balance') }}">Balance Report</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-cog"></i>
+                                    Pengaturan
+                                </a>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    <i class="fa fa-user"></i>
+                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="{{ url('profile') }}">Profil</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{{ url('/logout') }}"
+                                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                            Logout
+                                        </a>
+
+                                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    @endif
                 </div>
             </div>
         </nav>
+
         @yield('content')
     </div>
     <footer>
