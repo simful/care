@@ -13,61 +13,56 @@ class Patient extends Migration
      */
     public function up()
     {
-        Schema::create('patients', function(Blueprint $Patient){
-            $Patient->increments('id');
-            $Patient->integer('med_rec');
-            $Patient->string('name');
-            $Patient->string('birth');
-            $Patient->enum('gender',['male','female']);
-            $Patient->enum('religion',['islam','katolik','protestan', 'hindu','budha','konghucu','lainnya']);
-            $Patient->string('address');
-            $Patient->string('phone');
-            $Patient->timestamps();
+        Schema::create('allergies', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('med_rec');
+            $table->string('allergies');
+            $table->timestamps();
         });
-        Schema::create('allergies', function(Blueprint $al){
-            $al->increments('id');
-            $al->integer('med_rec');
-            $al->string('allergies');
-            $al->timestamps();
+
+        Schema::create('visits', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('date');
+            $table->integer('med_rec');
+            $table->integer('payment_id');
+            $table->integer('status_id');
         });
-        Schema::create('visits', function(Blueprint $visit){
-            $visit->increments('id');
-            $visit->string('date');
-            $visit->integer('med_rec');
-            $visit->integer('payment_id');
-            $visit->integer('status_id');
+
+        Schema::create('records', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('med_rec');
+            $table->integer('visit_id');
+            $table->text('subjective');
+            $table->text('objective');
+            $table->timestamps();
         });
-        Schema::create('records',function(Blueprint $record){
-            $record->increments('id');
-            $record->integer('med_rec');
-            $record->integer('visit_id');
-            $record->text('subjective');
-            $record->text('objective');
-            $record->timestamps();
+
+        Schema::create('assesments', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('record_id');
+            $table->integer('visit_id');
+            $table->string('icd10');
+            $table->string('diagnosis');
+            $table->timestamps();
         });
-        Schema::create('assesments',function(Blueprint $a){
-            $a->increments('id');
-            $a->integer('record_id');
-            $a->integer('visit_id');
-            $a->string('icd10');
-            $a->string('diagnosis');
-            $a->timestamps();
+
+        Schema::create('rec_drugs', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('drug_id');
+            $table->integer('record_id');
+            $table->integer('visit_id');
+            $table->string('drug');
+            $table->timestamps();
         });
-        Schema::create('rec_drugs', function(Blueprint $drug){
-            $drug->increments('id');
-            $drug->integer('drug_id');
-            $drug->integer('record_id');
-            $drug->integer('visit_id');
-            $drug->string('drug');
-            $drug->timestamps();
+
+        Schema::create('rec_procedures', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('record_id');
+            $table->integer('visit_id');
+            $table->integer('procedure_id');
+            $table->timestamps();
         });
-        Schema::create('rec_procedures', function(Blueprint $proc){
-            $proc->increments('id');
-            $proc->integer('record_id');
-            $proc->integer('visit_id');
-            $proc->integer('procedure_id');
-            $proc->timestamps();
-        });
+
     }
 
     /**

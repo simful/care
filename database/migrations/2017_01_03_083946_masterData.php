@@ -13,61 +13,48 @@ class MasterData extends Migration
      */
     public function up()
     {
-        
-        Schema::create('mClinics',function(Blueprint $clinic){
-            $clinic->increments('id');
-            $clinic->string('cName');
-            $clinic->string('cAddress');
-            $clinic->string('cPhone');
-            $clinic->string('cMail');
-            $clinic->timestamps();
+
+        Schema::create('clinics', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('address');
+            $table->string('phone');
+            $table->string('email');
+            $table->timestamps();
         });
-        Schema::create('mDoctors',function(Blueprint $dr){
-            $dr->increments('id');
-            $dr->string('name');
-            $dr->string('phone');
-            $dr->string('address');
-            $dr->string('email');
-            $dr->string('sip');
-            $dr->timestamps();
+
+        Schema::create('drugs', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('tmark');
+            $table->string('composition');
+            $table->string('preparation');
+            $table->string('unit');
+            $table->integer('price');
+            $table->integer('stock');
+            $table->timestamps();
         });
-        Schema::create('mEmployes',function(Blueprint $emp){
-            $emp->increments('id');
-            $emp->string('name');
-            $emp->string('phone');
-            $emp->string('address');
-            $emp->string('email');
-            $emp->string('sip');
-            $emp->timestamps(); 
+
+        Schema::create('diagnosis', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('icd10');
+            $table->string('desc');
+            $table->string('desc_id');
+            $table->timestamps();
         });
-        Schema::create('mDrugs',function(Blueprint $drug){
-            $drug->increments('id');
-            $drug->string('tmark');
-            $drug->string('composition');
-            $drug->string('preparation');
-            $drug->string('unit');
-            $drug->integer('price');
-            $drug->integer('stock');
-            $drug->timestamps();
+
+        Schema::create('insurances', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->timestamps();
         });
-        Schema::create('mDiagnosis',function(Blueprint $dx){
-            $dx->increments('id');
-            $dx->string('icd10');
-            $dx->string('desc');
-            $dx->string('desc_id');
-            $dx->timestamps();
+
+        Schema::create('procedures', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->integer('price');
+            $table->timestamps();
         });
-        Schema::create('mInsurances',function(Blueprint $ins){
-            $ins->increments('id');
-            $ins->string('name');
-            $ins->timestamps();
-        });
-        Schema::create('mProcedures',function(Blueprint $pro){
-            $pro->increments('id');
-            $pro->string('name');
-            $pro->integer('price');
-            $pro->timestamps();
-        });
+
     }
 
     /**
@@ -77,12 +64,12 @@ class MasterData extends Migration
      */
     public function down()
     {
-        Schema::drop('mClinics');
-        Schema::drop('mDoctors');
-        Schema::drop('mEmployes');
-        Schema::drop('mDrugs');
-        Schema::drop('mDiagnosis');
-        Schema::drop('mInsurances');
-        Schema::drop('mProcedures');
+        Schema::drop('clinics');
+        Schema::drop('doctors');
+        Schema::drop('employes');
+        Schema::drop('drugs');
+        Schema::drop('diagnosis');
+        Schema::drop('insurances');
+        Schema::drop('procedures');
     }
 }
