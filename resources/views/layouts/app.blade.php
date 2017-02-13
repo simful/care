@@ -246,8 +246,10 @@
                 </div>
             </div>
         </nav>
+        <div class="container-fluid" style="background: #fff;">
+            @yield('content')
+        </div>
 
-        @yield('content')
     </div>
     <footer>
         <div style="text-align: center;">

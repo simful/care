@@ -55,6 +55,22 @@ class MasterData extends Migration
             $table->timestamps();
         });
 
+        Schema::create('staffs',function(Blueprint $em){
+            $em->increments('id');
+            $em->string('email')->unique();
+            $em->string('password');
+            $em->string('name');
+            $em->string('phone')->nullable();
+            $em->string('address')->nullable();
+            $em->date('birth_date')->nullable();
+            $em->enum('gender', ['Male', 'Female']);
+            $em->enum('religion', ['Islam', 'Katolik', 'Protestan', 'Hindu', 'Buddha', 'Konghucu', 'Lainnya'])->nullable();
+            $em->enum('role', ['Administrator', 'Doctor', 'Nurse', 'Accounting', 'Pharmacist', 'Laboratorist', 'Staff', 'Patient'])->default('Patient');
+            $em->string('sip')->nullable();
+            $em->rememberToken();
+            $em->timestamps();
+        });
+
     }
 
     /**
@@ -65,8 +81,7 @@ class MasterData extends Migration
     public function down()
     {
         Schema::drop('clinics');
-        Schema::drop('doctors');
-        Schema::drop('employes');
+        Schema::drop('staffs');
         Schema::drop('drugs');
         Schema::drop('diagnosis');
         Schema::drop('insurances');

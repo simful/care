@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\User as User;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,6 +12,45 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        //$this->call(UsersTableSeeder::class);
+        User::insert([
+            'email'=>'pasien@care.com',
+            'password'=>bcrypt('rahasia'),
+            'name'=>'abdul latif',
+            'phone'=>'08122029205' ,
+            'address'=>'pasar ciputat tangerang selatan',
+            'gender'=>'Male',
+            'religion'=>'Islam',
+            'role'=>'Patient',
+            ]);
+        User::insert([
+            'email'=>'dokter@care.com',
+            'password'=>bcrypt('rahasia'),
+            'name'=>'abdul latif',
+            'phone'=>'08122029205' ,
+            'address'=>'pasar ciputat tangerang selatan',
+            'gender'=>'Male',
+            'religion'=>'Islam',
+            'role'=>'Doctor',
+            ]);
+        User::insert([
+            'email'=>'staff@care.com',
+            'password'=>bcrypt('rahasia'),
+            'name'=>'abdul latif',
+            'phone'=>'08122029205' ,
+            'address'=>'pasar ciputat tangerang selatan',
+            'gender'=>'Male',
+            'religion'=>'Islam',
+            'role'=>'Staff',
+            ]);
+        User::insert([
+            'email'=>'pharmacist@care.com',
+            'password'=>bcrypt('rahasia'),
+            'name'=>'abdul latif',
+            'phone'=>'08122029205' ,
+            'address'=>'pasar ciputat tangerang selatan',
+            'gender'=>'Male',
+            'religion'=>'Islam',
+            'role'=>'Pharmacist',
+            ]);
     }
 }

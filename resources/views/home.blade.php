@@ -1,16 +1,21 @@
 @extends('layouts.app')
 @section('content')
-<div class="container-fluid">
 <br/>
 	<div class="col-md-8">
-		<form class="form" method="post" action="">
+		<form class="form" method="post" action="{{url('newPatient')}}">
+		{{csrf_field()}}
+		<!-- <input type="hidden" name="csrf_token" value="{{csrf_token()}}"> -->
 			<table class="table table-hover table-striped table-bordered">
 				<thead>
 					<th colspan="4">Pasien baru</th>
 				</thead>
 				<tr>
 					<td>No.RM</td>
-					<td colspan="3"><input type="text" name="no_rm" class="form-control" placeholder="No. RM"></td>
+					<td><input type="text" name="med_rec" class="form-control" placeholder="No. RM"></td>
+					<td>No. KTP</td>
+					<td>
+						<input type="text" name="ktp" class="form-control" placeholder="No. KTP">
+					</td>
 				</tr>
 				<tr>
 					<td>Nama</td>
@@ -18,7 +23,7 @@
 				</tr>
 				<tr>
 					<td>Tanggal Lahir</td>
-					<td colspan="3"><input type="text" name="birth" class="form-control" placeholder="Tanggal Lahir"></td>
+					<td colspan="3"><input type="text" name="birth_date" class="form-control" placeholder="Tanggal Lahir"></td>
 				</tr>
 				<tr>
 					<td>Gender</td>
@@ -54,6 +59,10 @@
 					</td>
 				</tr>
 				<tr>
+					<td>No. Telp</td>
+					<td colspan="3"><input type="text" name="phone" class="form-control" ></td>
+				</tr>
+				<tr>
 					<td>Alamat</td>
 					<td colspan="3">
 						<textarea name="address" placeholder="Alamat" class="form-control"></textarea>
@@ -77,6 +86,9 @@
 				<td style="width: 5%">
 					<button class="btn btn-default"><span class="fa fa-search"></span></button>
 				</td>
+			</tr>
+			<tr>
+				<td colspan="2"> <a href="{{url('/patient')}}" class="btn btn-default btn-sm pull-right">Daftar Pasien <span class="fa fa-book"></span></a></td>
 			</tr>
 		</table>
 		<table class="table table-bordered table-striped">
@@ -103,16 +115,4 @@
 			</tbody>
 		</table>
 	</div>
-	<div class="col-md-12">
-		<table class="table table-bordered">
-			<tr>
-				<th style="text-align: center;">#</th>
-				<th style="text-align: center;">Nama</th>
-				<th style="text-align: center;">No. RM</th>
-				<th style="text-align: center;">Status</th>
-				<th style="text-align: center;">Opsi</th>
-			</tr>
-		</table>
-	</div>
-</div>
 @endsection
