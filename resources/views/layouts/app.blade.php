@@ -246,7 +246,7 @@
                 </div>
             </div>
         </nav>
-        <div class="container-fluid" style="background: #fff;">
+        <div class="container-fluid">
             @yield('content')
         </div>
 

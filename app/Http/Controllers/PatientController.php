@@ -19,7 +19,7 @@ class PatientController extends Controller
 
     public function store(Request $request)
     {
-        $data = $req->except('_token');
+        $data = $request->except('_token');
         Patient::create($data);
 
         return redirect('/patient');

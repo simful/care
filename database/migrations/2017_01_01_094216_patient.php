@@ -64,9 +64,9 @@ class Patient extends Migration
             $table->integer('procedure_id');
             $table->timestamps();
         });
+
         Schema::create('patients',function(Blueprint $patient){
-            $patient->increments('id');
-            $patient->integer('med_rec')->unique();
+            $patient->integer('id')->primary();
             $patient->string('ktp')->nullable();
             $patient->string('name');
             $patient->string('phone')->nullable();
@@ -74,8 +74,8 @@ class Patient extends Migration
             $patient->date('birth_date')->nullable();
             $patient->enum('gender', ['Male', 'Female']);
             $patient->enum('religion', ['Islam', 'Katolik', 'Protestan', 'Hindu', 'Buddha', 'Konghucu', 'Lainnya'])->nullable();
-            $patient->string('job');
-            $patient->enum('marriage',['belum','menikah','janda','duda']);
+            $patient->string('occupation')->nullable();
+            $patient->enum('marriage_status', ['Belum Menikah', 'Menikah', 'Janda/Duda']);
             $patient->timestamps();
         });
 
