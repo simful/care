@@ -9,7 +9,6 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+
 Route::get('home', 'HomeController@index');
-Route::post('newPatient', 'PatientController@store');
-Route::get('patient', 'PatientController@index');
-Route::get('patient/{id}', 'PatientController@show');
+Route::resource('patients', 'PatientController');

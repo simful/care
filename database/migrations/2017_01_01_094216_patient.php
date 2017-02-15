@@ -67,7 +67,7 @@ class Patient extends Migration
 
         Schema::create('patients',function(Blueprint $patient){
             $patient->integer('id')->primary();
-            $patient->string('ktp')->nullable();
+            $patient->string('nik')->nullable();
             $patient->string('name');
             $patient->string('phone')->nullable();
             $patient->string('address')->nullable();

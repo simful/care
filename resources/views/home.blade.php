@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
-	<div class="col-md-8">
-		<form class="form form-horizontal" method="post" action="{{url('newPatient')}}">
+	<div class="col-md-8 col-lg-9">
+		<form class="form form-horizontal" method="post" action="{{ url('patients') }}">
 			{{ csrf_field() }}
 
 			<div class="box">
@@ -126,14 +126,14 @@
 		</form>
 	</div>
 
-	<div class="col-md-4">
-		<div class="box">
-			<div class="box-header">
-				Cari Pasien
-			</div>
+	<div class="col-md-4 col-lg-3">
+		<form action="{{ url('patients') }}" method="get">
+			<div class="box">
+				<div class="box-header">
+					Cari Pasien
+				</div>
 
-			<div class="box-body">
-				<form class="form-inline">
+				<div class="box-body">
 					<div class="input-group">
 						<input type="text" name="q" placeholder="Nama, alamat, ..." class="form-control">
 						<span class="input-group-btn">
@@ -142,9 +142,13 @@
 							</button>
 						</span>
 					</div>
-				</form>
+				</div>
+
+				<div class="box-footer">
+					<a href="{{ url('patients') }}">Lihat Semua</a>
+				</div>
 			</div>
-		</div>
+		</form>
 
 		<div class="box no-padding">
 			<div class="box-header">

@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\User as User;
 
 class HomeController extends Controller
 {
     /**
      * Create a new controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -24,7 +21,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $users=User::all();
-        return view('home',['users'=>$users]);
+        $users = User::all();
+
+        return view('home', compact('users'));
+    }
+
+    public function profile()
+    {
+        $user = Auth::user();
+
+        return view('users.show', compact('user'));
     }
 }
