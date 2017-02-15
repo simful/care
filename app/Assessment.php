@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class drug extends Model
+class Assessment extends Model
 {
     //
 }

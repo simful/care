@@ -37,7 +37,7 @@ class Patient extends Migration
             $table->timestamps();
         });
 
-        Schema::create('assesments', function (Blueprint $table) {
+        Schema::create('assessments', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('record_id');
             $table->integer('visit_id');
@@ -92,7 +92,7 @@ class Patient extends Migration
         Schema::drop('allergies');
         Schema::drop('visits');
         Schema::drop('records');
-        Schema::drop('assesments');
+        Schema::drop('assessments');
         Schema::drop('rec_drugs');
         Schema::drop('rec_procedures');
     }

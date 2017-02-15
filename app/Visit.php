@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class assesment extends Model
+class Visit extends Model
 {
     //
 }
