@@ -5,9 +5,9 @@
 <div class="container" style="margin-top: 5%;">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
-                <div class="panel-body">
+            <div class="box">
+                <div class="box-header">Login</div>
+                <div class="box-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {{ csrf_field() }}
 

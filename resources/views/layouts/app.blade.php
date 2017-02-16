@@ -96,6 +96,7 @@
                                         <a href="#">Pengambilan Obat</a>
                                     </li>
 
+
                                 </ul>
                             </li>
 
@@ -150,6 +151,10 @@
 
                                     <li>
                                         <a href="#">Data Dokter & Staff</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#">Data Obat</a>
                                     </li>
 
                                     <li class="divider"></li>
