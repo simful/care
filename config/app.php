@@ -168,7 +168,9 @@ return [
          * Package Service Providers...
          */
 
-        //
+        Fedeisas\LaravelMailCssInliner\LaravelMailCssInlinerServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -226,7 +228,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'Image' => Intervention\Image\Facades\Image::class,
+        'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
+        'Report' => App\Http\Controllers\Reports\Report::class,
     ],
 
 ];

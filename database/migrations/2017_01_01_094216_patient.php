@@ -15,7 +15,7 @@ class Patient extends Migration
     {
         Schema::create('allergies', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('med_rec');
+            $table->integer('patient_id');
             $table->string('allergies');
             $table->timestamps();
         });
@@ -23,14 +23,14 @@ class Patient extends Migration
         Schema::create('visits', function (Blueprint $table) {
             $table->increments('id');
             $table->date('date');
-            $table->integer('med_rec');
+            $table->integer('patient_id');
             $table->integer('payment_id')->default('0');
             $table->integer('status_id')->default('0');
         });
 
         Schema::create('records', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('med_rec');
+            $table->integer('patient_id');
             $table->integer('visit_id');
             $table->text('subjective');
             $table->text('objective');
@@ -48,7 +48,7 @@ class Patient extends Migration
 
         Schema::create('rec_drugs', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('med_rec');
+            $table->integer('patient_id');
             $table->integer('drug_id');
             $table->integer('record_id');
             $table->integer('visit_id');
@@ -58,7 +58,7 @@ class Patient extends Migration
 
         Schema::create('rec_procedures', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('med_rec');
+            $table->integer('patient_id');
             $table->integer('record_id');
             $table->integer('visit_id');
             $table->integer('procedure_id');

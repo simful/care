@@ -20,6 +20,13 @@ class PatientController extends Controller
     public function store(Request $request)
     {
         $data = $request->except('_token');
+
+        $this->validate($request, [
+            'id' => 'required',
+            'nik' => 'required',
+            'name' => 'required'
+        ]);
+
         Patient::create($data);
 
         return redirect('/patient');
