@@ -7,19 +7,21 @@ use Auth;
 
 class ProfileController extends Controller
 {
-    function index()
-	{
-        $user = Auth::user();
-		return view('profile.view', compact('user'));
-	}
-
-    function edit()
+    public function index()
     {
         $user = Auth::user();
+
+        return view('profile.view', compact('user'));
+    }
+
+    public function edit()
+    {
+        $user = Auth::user();
+
         return view('profile.edit', compact('user'));
     }
 
-    function update(Request $request)
+    public function update(Request $request)
     {
         $this->validate($request, [
             'name' => 'required',

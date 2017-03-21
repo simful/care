@@ -12,8 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'SimfulCare',
-    'version' => '1.0.0',
+    'name' => 'Laravel',
 
     /*
     |--------------------------------------------------------------------------

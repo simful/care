@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class AccountGroupController extends Controller
 {
-	function index()
+    public function index()
     {
         $accountGroups = AccountGroup::all();
 
-        return view('accounts.index', compact('accounts'));
+        return viewOrJson('accounts.index', compact('accounts'));
     }
 }

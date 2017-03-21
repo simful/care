@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 class PurchaseDetail extends Model
 {
     public $connection = 'tenant';
-    public $fillable = ['company_id', 'supplier_id', 'product_id', 'description', 'qty', 'price', 'price_nett'];
+    public $guarded = [];
     public static $rules = [];
 
     function purchase() {

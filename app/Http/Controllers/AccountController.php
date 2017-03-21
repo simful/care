@@ -20,7 +20,7 @@ class AccountController extends Controller
 
         $accounts = $accounts->get();
 
-        return view('accounts.index', compact('accounts'));
+        return viewOrJson('accounts.index', compact('accounts'));
     }
 
     public function create()
@@ -52,7 +52,7 @@ class AccountController extends Controller
             ->whereAccountId($account->id)
             ->paginate(15);
 
-        return view('accounts.show', compact('account', 'transactions'));
+        return viewOrJson('accounts.show', compact('account', 'transactions'));
     }
 
     public function edit($id)
@@ -76,31 +76,33 @@ class AccountController extends Controller
         $account->fill($request->all());
         $account->save();
 
-        return redirect('/accounts');
+        return redirect('accounts');
     }
 
     public function destroy($id)
     {
         $account = Account::find($id);
 
-        if ($account->editable)
-        {
+        if ($account->editable) {
             $account->destroy();
+
             return redirect('/accounts');
         }
 
-        return redirect('/accounts');
+        return redirect('accounts');
     }
 
     public function getDefaults()
     {
         $defaults = [];
+
         return view('accounts.defaults', compact('defaults'));
     }
 
     public function setDefaults(Request $request)
     {
         $defaults = [];
+
         return back();
     }
 }

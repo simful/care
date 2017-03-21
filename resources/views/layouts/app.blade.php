@@ -8,10 +8,12 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Klinik</title>
+    <title>@yield('title') | Simful Care</title>
 
     <!-- Styles -->
-    <link href="/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/lib/selectize/dist/css/selectize.bootstrap3.css">
+    <link rel="stylesheet" href="/lib/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
     <link href="/css/app.css" rel="stylesheet">
 
     <!-- Scripts -->
@@ -20,11 +22,27 @@
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
+
+    <!-- Scripts -->
+    <script src="/js/app.js"></script>
+    <script src="/lib/selectize/dist/js/standalone/selectize.min.js"></script>
+    <script src="/lib/moment/min/moment.min.js"></script>
+    <script src="/lib/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="/lib/chart.js/dist/Chart.bundle.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('.selectize-single').selectize();
+            $('.datepicker').datetimepicker({
+                format: 'YYYY-MM-DD'
+            });
+		});
+	</script>
+    @yield('scripts')
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-default navbar-fixed-top" id="main-menu">
-            <div class="container-fluid">
+            <div class="container">
                 <div class="navbar-header">
 
                     <!-- Collapsed Hamburger -->
@@ -37,7 +55,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        <img src="/img/simful-logo.png" class="brand">
+                        <img src="/img/simfulcare-logo.png" class="brand">
                     </a>
                 </div>
 
@@ -51,175 +69,171 @@
                     @if (Auth::check())
                         <ul class="nav navbar-nav navbar-right">
                             <!-- Authentication Links -->
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    <i class="fa fa-user-md"></i>Dokter <span class="caret"></span>
-                                </a>
 
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="#">Jadwal Kunjungan Pasien</a>
-                                    </li>
+                            <li>
+                               <a href="{{ url('appointments') }}">
+                                   <i class="fa fa-calendar"></i>
+                                   Appointments
+                               </a>
+                           </li>
 
-                                    <li>
-                                        <a href="#">Assess Pasien</a>
-                                    </li>
 
-                                    <li>
-                                        <a href="#">Resep</a>
-                                    </li>
-                                </ul>
-                            </li>
+                            <li>
+                               <a href="{{ url('patients') }}">
+                                   <i class="fa fa-user"></i>
+                                   Patients
+                               </a>
+                           </li>
 
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    <i class="fa fa-handshake-o"></i>
-                                    Resepsionis <span class="caret"></span>
+                                    <i class="fa fa-shopping-basket"></i>Store <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
+                                    <li class="dropdown-header">Stock</li>
+
                                     <li>
-                                        <a href="#">Pendaftaran</a>
+                                        <a href="{{ url('products') }}">Products</a>
                                     </li>
 
                                     <li>
-                                        <a href="#">Antrian Pasien</a>
+                                        <a href="{{ url('stock') }}">Stock</a>
                                     </li>
-
-                                    <li>
-                                        <a href="#">Surat Sakit</a>
-                                    </li>
-
-                                    <li class="divider"></li>
-
-                                    <li>
-                                        <a href="#">Pengambilan Obat</a>
-                                    </li>
-
-
                                 </ul>
                             </li>
 
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     <i class="fa fa-money"></i>
-                                    Keuangan <span class="caret"></span>
+                                    Accounting <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
+                                    <li class="dropdown-header">Sales & Purchases</li>
 
-                                    <li class="dropdown-header">Transaksi</li>
                                     <li>
-                                        <a href="#">Sales Invoices</a>
+                                       <a href="{{ url('invoices') }}">
+                                           <i class="fa fa-plane fa-icon"></i>
+                                           Sales Invoices
+                                       </a>
+                                   </li>
+
+                                    <li>
+                                        <a href="{{ url('purchases') }}">
+                                            <i class="fa fa-shopping-cart fa-icon"></i>
+                                            Purchase Orders
+                                        </a>
                                     </li>
 
                                     <li>
-                                        <a href="#">Purchase Orders</a>
+                                        <a href="{{ url('expenses') }}">
+                                            <i class="fa fa-credit-card fa-icon"></i>
+                                            Expenses
+                                        </a>
+                                    </li>
+
+                                    <li class="divider">
+
+                                    <li>
+                                        <a href="{{ url('contacts') }}">
+                                            <i class="fa fa-address-book fa-icon"></i>
+                                            Contacts
+                                        </a>
                                     </li>
 
                                     <li>
-                                        <a href="#">Expenses</a>
-                                    </li>
-
-                                    <li class="divider"></li>
-                                    <li class="dropdown-header">Accounting</li>
-                                    <li>
-                                        <a href="#">Buku Besar</a>
+                                        <a href="{{ url('accounts') }}">
+                                            <i class="fa fa-book fa-icon"></i>
+                                            General Ledger
+                                        </a>
                                     </li>
 
                                     <li>
-                                        <a href="#">Jurnal</a>
+                                        <a href="{{ url('transactions') }}">
+                                            <i class="fa fa-file-text-o fa-icon"></i>
+                                            Journal
+                                        </a>
                                     </li>
 
-                                    <li>
-                                        <a href="#">Pajak</a>
-                                    </li>
-
-                                </ul>
-                            </li>
-
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    <i class="fa fa-archive"></i>
-                                    Data & Inventaris <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="#">Data Pasien</a>
-                                    </li>
+                                    <li class="divider">
 
                                     <li>
-                                        <a href="#">Data Dokter & Staff</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#">Data Obat</a>
-                                    </li>
-
-                                    <li class="divider"></li>
-
-                                    <li>
-                                        <a href="#">Stok Obat</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#">Stok Alat Kesehatan</a>
+                                        <a href="{{ url('taxes') }}">
+                                            <i class="fa fa-percent fa-icon"></i>
+                                            Tax
+                                        </a>
                                     </li>
                                 </ul>
                             </li>
-
 
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     <i class="fa fa-line-chart"></i>
-                                    Laporan <span class="caret"></span>
+                                    Reports <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
-                                        <a href="{{ url('reports/sales') }}">Sales Report</a>
+                                        <a href="{{ url('reports/sales') }}">
+                                            <i class="fa fa-bar-chart fa-icon"></i>
+                                            Sales Report
+                                        </a>
                                     </li>
 
                                     <li>
-                                        <a href="{{ url('reports/purchases') }}">Purchase Report</a>
+                                        <a href="{{ url('reports/purchases') }}">
+                                            <i class="fa fa-bar-chart fa-icon"></i>
+                                            Purchase Report
+                                        </a>
                                     </li>
 
                                     <li>
-                                        <a href="{{ url('reports/expenses') }}">Expense Report</a>
+                                        <a href="{{ url('reports/expenses') }}">
+                                            <i class="fa fa-bar-chart fa-icon"></i>
+                                            Expense Report
+                                        </a>
                                     </li>
 
                                     <li>
-                                        <a href="{{ url('reports/stock') }}">Stock Report</a>
+                                        <a href="{{ url('reports/stock') }}">
+                                            <i class="fa fa-bar-chart fa-icon"></i>
+                                            Stock Report
+                                        </a>
                                     </li>
 
                                     <li class="divider"></li>
 
                                     <li>
-                                        <a href="{{ url('reports/receivables') }}">Receivables Report</a>
+                                        <a href="{{ url('reports/receivables') }}">
+                                            <i class="fa fa-bar-chart fa-icon"></i>
+                                            Receivables Report
+                                        </a>
                                     </li>
 
                                     <li>
-                                        <a href="{{ url('reports/payables') }}">Payables Report</a>
+                                        <a href="{{ url('reports/payables') }}">
+                                            <i class="fa fa-bar-chart fa-icon"></i>
+                                            Payables Report
+                                        </a>
                                     </li>
 
                                     <li class="divider"></li>
 
                                     <li>
-                                        <a href="{{ url('reports/income-statement') }}">Income Statement</a>
+                                        <a href="{{ url('reports/income-statement') }}">
+                                            <i class="fa fa-bar-chart fa-icon"></i>
+                                            Income Statement
+                                        </a>
                                     </li>
 
                                     <li>
-                                        <a href="{{ url('reports/trial-balance') }}">Balance Report</a>
+                                        <a href="{{ url('reports/trial-balance') }}">
+                                            <i class="fa fa-bar-chart fa-icon"></i>
+                                            Balance Report
+                                        </a>
                                     </li>
                                 </ul>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-cog"></i>
-                                    Pengaturan
-                                </a>
                             </li>
 
                             <li class="dropdown">
@@ -230,20 +244,31 @@
 
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
-                                        <a href="{{ url('profile') }}">Profil</a>
+                                       <a href="{{ url('profile') }}">
+                                           <i class="fa fa-user fa-icon"></i>
+                                           Profile
+                                       </a>
                                     </li>
 
                                     <li>
-                                        <a href="{{ url('/logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
+                                        <a href="{{ url('settings') }}">
+                                            <i class="fa fa-cog fa-icon"></i>
+                                            Settings
                                         </a>
-
-                                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
                                     </li>
+
+                                    <li>
+                                       <a href="{{ url('/logout') }}"
+                                           onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                                           <i class="fa fa-sign-out fa-icon"></i>
+                                           Logout
+                                       </a>
+
+                                       <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                           {{ csrf_field() }}
+                                       </form>
+                                   </li>
                                 </ul>
                             </li>
                         </ul>
@@ -251,18 +276,10 @@
                 </div>
             </div>
         </nav>
-        <div class="container-fluid">
-            @yield('content')
-        </div>
 
+        @yield('content')
     </div>
-    <footer>
-        <div style="text-align: center;">
-            {{config('app.name')}} V.{{config('app.version')}}
-        </div>
-    </footer>
 
-    <!-- Scripts -->
-    <script src="/js/app.js"></script>
+
 </body>
 </html>

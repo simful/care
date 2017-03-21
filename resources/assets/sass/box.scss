@@ -3,6 +3,7 @@
 		border: 1px solid #eee;
 		background: #fff;
 		margin-bottom: 10px;
+		box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
 
 		.box-header {
 			padding: 15px 10px;
@@ -26,6 +27,10 @@
 			.box-body {
 				padding: 0 10px;
 			}
+		}
+
+		.table > tbody > tr:first-child > td {
+			border-top: none;
 		}
 	}
 }

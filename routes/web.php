@@ -1,28 +1,29 @@
 <?php
 
-function m($input) {
-    return 'Rp ' . number_format($input, 2, '.', ',');
-}
-
-function mp($input) {
-    return 'Rp <span class="pull-right">' . number_format($input, 2, '.', ',') . '</span>';
-}
-
-function d($input) {
-    if (!($input instanceof Carbon\Carbon)) {
-        $input = new Carbon\Carbon($input);
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| This file is where you may define all of the routes that are handled
+| by your application. Just tell Laravel the URIs it should respond
+| to using a Closure or controller method. Build something great!
+|
+*/
+Route::get('/', function () {
+    if (Auth::check()) {
+        return redirect('home');
+    } else {
+        return redirect('login');
     }
-    return $input->toFormattedDateString();
-}
+});
 
-Route::get('/', 'HomeController@index');
+Route::get('demo', 'HomeController@demo');
 
 Auth::routes();
 
-Route::group(['middleware' => 'auth'], function() {
+Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'HomeController@index');
-
-	Route::resource('patients', 'PatientController');
 
     Route::post('invoices/add-item/{id}', 'InvoicesController@addItem');
     Route::post('invoices/remove-item/{id}', 'InvoicesController@removeItem');
@@ -72,4 +73,9 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('reports/trial-balance', 'ReportController@trialBalance');
 
     Route::resource('users', 'UsersController');
+    Route::resource('patients', 'PatientController');
+
+    Route::resource('appointments', 'AppointmentsController');
+    Route::get('queue/{clinicId}', 'QueueController@show');
+    Route::get('queue/enter/{appointmentId}', 'QueueController@enter');
 });

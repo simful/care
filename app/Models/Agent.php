@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Agent extends Model
 {
-	public $fillable = ['name', 'address', 'city', 'state', 'country', 'phone', 'email', 'website', 'max_users', 'package', 'billing_cycle', 'settings'];
+	public $guarded = [];
     public static $rules = ['name' => 'required'];
 	protected $appends = ['logo'];
 

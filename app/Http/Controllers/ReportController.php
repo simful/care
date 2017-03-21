@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use DB, Charts;
-use Invoice, Product, Purchase, Expense;
+use DB;
+use Invoice;
+use Product;
+use Purchase;
 use Report;
 
 class ReportController extends Controller
@@ -14,8 +15,9 @@ class ReportController extends Controller
 
     public function stock()
     {
-		$products = Product::orderBy('name')->get();
-		return view('reports.stock', compact('products'));
+        $products = Product::orderBy('name')->get();
+
+        return view('reports.stock', compact('products'));
     }
 
     public function receivables()
@@ -52,12 +54,12 @@ class ReportController extends Controller
             GROUP BY transaction_details.account_id
             ORDER BY accounts.id";
 
-        return DB::connection('tenant')->select($items, [ 'startDate' => Report::startDate(), 'endDate' => Report::endDate(), 'group' => $account_group_id ]);
+        return DB::connection('tenant')->select($items, ['startDate' => Report::startDate(), 'endDate' => Report::endDate(), 'group' => $account_group_id]);
     }
 
     public function incomeStatement()
     {
-        $data = (object)[
+        $data = (object) [
             'revenue' => $this->getAccountBalance(7),
             'cgs' => $this->getAccountBalance(8),
             'expenses' => $this->getAccountBalance(9),
@@ -73,7 +75,7 @@ class ReportController extends Controller
             'data' => $data,
             'totals' => $totals,
             'startDate' => Report::startDate(),
-            'endDate' => Report::endDate()
+            'endDate' => Report::endDate(),
         ]);
     }
 
@@ -92,9 +94,9 @@ class ReportController extends Controller
 			OR transactions.created_at = NULL
 			GROUP BY accounts.id";
 
-		$data = DB::connection('tenant')->select($query, [Report::startDate(), Report::endDate()]);
+        $data = DB::connection('tenant')->select($query, [Report::startDate(), Report::endDate()]);
 
-        $totals = (object)[
+        $totals = (object) [
             'debit' => 0,
             'credit' => 0,
         ];

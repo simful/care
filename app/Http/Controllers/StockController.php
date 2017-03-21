@@ -3,33 +3,36 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Product, Auth, StockHistory;
-use Invoice, Purchase;
+use Product;
+use Invoice;
 
 class StockController extends Controller
 {
     public function index()
-	{
-		$products = Product::orderBy('name')->get();
-		return view('stock.index', compact('products'));
-	}
+    {
+        $products = Product::orderBy('name')->get();
+
+        return view('stock.index', compact('products'));
+    }
 
     public function show($id)
     {
         $product = Product::find($id);
+
         return view('stock.show', compact('product'));
     }
 
     public function edit($id)
     {
         $product = Product::find($id);
+
         return view('stock.edit', compact('product'));
     }
 
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'stock' => 'required|integer'
+            'stock' => 'required|integer',
         ]);
 
         // add to stock history
@@ -38,17 +41,13 @@ class StockController extends Controller
         // determine stock larger or smaller
         $oldStock = $product->stock;
 
-        if (strlen($request->reason) < 1)
-        {
+        if (strlen($request->reason) < 1) {
             $request->reason = 'Update stock';
         }
 
-        if ($product->stock != $request->stock)
-        {
+        if ($product->stock != $request->stock) {
             $product->stock = $request->stock;
             $product->save();
-
-
         }
 
         return redirect('stock');
@@ -69,6 +68,5 @@ class StockController extends Controller
 
     public function updateFromPurchase(Request $request, $id)
     {
-
     }
 }

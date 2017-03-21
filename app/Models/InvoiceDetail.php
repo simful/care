@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 class InvoiceDetail extends Model
 {
     public $connection = 'tenant';
-    public $fillable = ['product_id', 'company_id', 'supplier_id', 'description', 'qty', 'price', 'price_nett'];
+    public $guarded = [];
     public static $rules = [];
 
     function invoice() {

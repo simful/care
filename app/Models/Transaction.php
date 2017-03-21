@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
     public $connection = 'tenant';
-    public $fillable = ['description', 'date',];
+    public $guarded = [];
     public static $rules = [];
 
     function account() {

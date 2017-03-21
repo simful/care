@@ -24,7 +24,8 @@ class TaxesController extends Controller
         }
 
         $taxes = $taxes->paginate(10);
-        return view('taxes.index', compact('taxes'));
+
+        return viewOrJson('taxes.index', compact('taxes'));
     }
 
     /**
@@ -35,14 +36,16 @@ class TaxesController extends Controller
     public function create()
     {
         $is_edit = false;
-        $tax = new Tax;
+        $tax = new Tax();
+
         return view('taxes.form', compact('tax', 'is_edit'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -50,7 +53,7 @@ class TaxesController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'code' => 'required',
-            'rate' => 'required|numeric'
+            'rate' => 'required|numeric',
         ]);
 
         $tax = new Tax($request->all());
@@ -63,33 +66,38 @@ class TaxesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         $tax = Tax::find($id);
+
         return $tax;
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         $is_edit = true;
         $tax = Tax::find($id);
+
         return view('taxes.form', compact('tax', 'is_edit'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -97,7 +105,7 @@ class TaxesController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'code' => 'required',
-            'rate' => 'required|numeric'
+            'rate' => 'required|numeric',
         ]);
 
         $tax = Tax::find($id);
@@ -111,7 +119,8 @@ class TaxesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

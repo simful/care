@@ -1,102 +1,111 @@
 @extends('layouts.app')
+
+@section('title')
+    {{ $patient->name }}
+@endsection
+
 @section('content')
-<div>
+    <div class="container">
 
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#identitas" aria-controls="identitas" role="tab" data-toggle="tab"><span class="fa fa-file"> Identitas </span></a></li>
-    <li role="presentation"><a href="#kunjungan" aria-controls="kunjungan" role="tab" data-toggle="tab"> <span class="fa fa-ambulance"></span> Kunjungan</a></li>
-    <li role="presentation"><a href="#r_obat" aria-controls="r_obat" role="tab" data-toggle="tab"> <span class="fa fa-medkit"></span> Obat/Tndakan</a></li>
-  </ul>
+        <div class="mbot20">
+            <a href="{{ url('patients') }}" class="btn btn-primary"><i class="fa fa-arrow-left fa-icon"></i>
+                Back to Patient List
+            </a>
+        </div>
 
-  <!-- Tab panes -->
-  <div class="tab-content">
-    <div role="tabpanel" class="tab-pane in active" id="identitas">
-    	<div class="panel panel-default">
-    		<div class="panel-body">
-    			<table class="table table-striped table-bordered">
-    			@foreach($find as $f)
-    				<tr>
-    					<td style="width: 13%;">No Rekam Medis</td>
-    					<td style="width: 3%;">:</td>
-    					<td>{{$f->med_rec}}</td>
-    				</tr>
-    				<tr>
-    					<td>No KTP</td>
-    					<td>:</td>
-    					<td>{{$f->ktp}}</td>
-    				</tr>
-    				<tr>
-    					<td>Nama</td>
-    					<td>:</td>
-    					<td>{{$f->name}}</td>
-    				</tr>
-    				<tr>
-    					<td>Tanggal Lahir</td>
-    					<td>:</td>
-    					<td>{{$f->birth_date}}</td>
-    				</tr>
-    				<tr>
-    					<td>Jenis Kelamin</td>
-    					<td>:</td>
-    					<td>{{$f->gender}}</td>
-    				</tr>
-    				<tr>
-    					<td>Pekerjaan</td>
-    					<td>:</td>
-    					<td>{{$f->job}}</td>
-    				</tr>
-    				<tr>
-    					<td>Agama</td>
-    					<td>:</td>
-    					<td>{{$f->religion}}</td>
-    				</tr>
-    				<tr>
-    					<td>Alamat</td>
-    					<td>:</td>
-    					<td>{{$f->address}}</td>
-    				</tr>
-    				@endforeach
-    			</table>
-    		</div>
-    	</div>
-    </div>
-    <div role="tabpanel" class="tab-pane fade" id="kunjungan">
-    	<div class="panel panel-default">
-    		<div class="panel-body">
-    			@if(count($visits)>0)
-    			<table>
-    				<thead>
-    					
-    				</thead>
-	    			@foreach($visits as $v)
-	    			<tr></tr>
-	    			@endforeach
-	    			@else
-	    			<tr><td>Belum ada data</td></tr>
-    			</table>
-    			@endif
-    		</div>
-    	</div>
-    </div>
-    <div role="tabpanel" class="tab-pane fade" id="r_obat">
-    	<div class="panel panel-default">
-    		<div class="panel-body">
-		    	@if(count($drug)>0)
-		    	<table>
-		    		<thead></thead>
-	    			@foreach($drug as $d)
-		    		<tr></tr>
-	    			@endforeach
-	    			@else
-	    			<tr><td>Belum ada data</td></tr>
-		    	</table>
-		    	@endif
-    		</div>
-    	</div>
-    </div>
-    
-  </div>
+        <div class="box">
+            <div class="box-header">
+                @yield('title')
+            </div>
+            <div class="box-body">
+                <div class="form form-horizontal">
+                    <div class="row">
+                        <div class="col-md-2 text-center">
+                            <img src="{{ $patient->avatar ?: '/img/default-avatar-female.png' }}" class="img img-responsive"/>
 
-</div>
+                            <div>
+                                <a href="{{ url("patients/$patient->id/edit") }}" class="btn btn-default btn-block">
+                                    <i class="fa fa-pencil fa-icon"></i>
+                                    Edit Patient
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                <label for="id" class="control-label col-md-4" style="text-align: left">No. RM</label>
+                                <div class="col-md-8">
+                                    <p class="form-control-static">{{ $patient->id }}</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nik" class="control-label col-md-4" style="text-align: left">No. KTP/NIK</label>
+                                <div class="col-md-8">
+                                    <p class="form-control-static">{{ $patient->nik }}</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name" class="control-label col-md-4" style="text-align: left">Nama Pasien</label>
+                                <div class="col-md-8">
+                                    <p class="form-control-static">{{ $patient->name }}</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="birth_date" class="control-label col-md-4" style="text-align: left">Tanggal Lahir</label>
+                                <div class="col-md-8">
+                                    <p class="form-control-static">{{ d($patient->birth_date) }}</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="gender" class="control-label col-md-4" style="text-align: left">Jenis Kelamin</label>
+                                <div class="col-md-8">
+                                    <p class="form-control-static">{{ $patient->gender }}</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="religion" class="control-label col-md-4" style="text-align: left">Agama</label>
+                                <div class="col-md-8">
+                                    <p class="form-control-static">{{ $patient->religion }}</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="occupation" class="control-label col-md-4" style="text-align: left">Pekerjaan</label>
+                                <div class="col-md-8">
+                                    <p class="form-control-static">{{ $patient->occupation }}</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="marriage_status" class="control-label col-md-4" style="text-align: left">Status Pernikahan</label>
+                                <div class="col-md-8">
+                                    <p class="form-control-static">{{ $patient->marriage_status }}</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone" class="control-label col-md-4" style="text-align: left">Nomor Telepon</label>
+                                <div class="col-md-8">
+                                    <p class="form-control-static">{{ $patient->phone }}</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="address" class="control-label col-md-4" style="text-align: left">Alamat</label>
+                                <div class="col-md-8">
+                                    <p class="form-control-static">{{ $patient->address }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

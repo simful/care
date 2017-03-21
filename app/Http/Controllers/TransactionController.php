@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Transaction, TransactionDetail, Account;
+use Transaction;
+use TransactionDetail;
+use Account;
 
 class TransactionController extends Controller
 {
-    function index()
+    public function index()
     {
         $transactions = Transaction::orderBy('created_at', 'desc')
             ->with('details')
@@ -16,17 +18,18 @@ class TransactionController extends Controller
         return view('transactions.index', compact('transactions'));
     }
 
-    function create()
+    public function create()
     {
         $isEdit = false;
-        $transaction = new Transaction;
+        $transaction = new Transaction();
+
         return view('transactions.form', compact('isEdit', 'transaction'));
     }
 
-    function store(Request $request)
+    public function store(Request $request)
     {
         $this->validate($request, [
-            'description' => 'required'
+            'description' => 'required',
         ]);
 
         $transaction = new Transaction($request->all());
@@ -35,7 +38,7 @@ class TransactionController extends Controller
         return redirect("/transactions/$transaction->id");
     }
 
-    function show($id)
+    public function show($id)
     {
         $transaction = Transaction::find($id);
         $accounts = Account::all();
@@ -50,10 +53,10 @@ class TransactionController extends Controller
         return view('transactions.show', compact('transaction', 'accounts', 'predictedCredit', 'predictedDebit'));
     }
 
-    function update(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'description' => 'required'
+            'description' => 'required',
         ]);
 
         $transaction = Transaction::find($id);
@@ -63,7 +66,7 @@ class TransactionController extends Controller
         return redirect("/transactions/$transaction->id");
     }
 
-    function destroy($id)
+    public function destroy($id)
     {
         $transaction = Transaction::find($id);
         $transaction->details()->delete();
@@ -72,10 +75,10 @@ class TransactionController extends Controller
         return $transaction;
     }
 
-    function addItem(Request $request, $id)
+    public function addItem(Request $request, $id)
     {
         $this->validate($request, [
-			'account_id' => 'required',
+            'account_id' => 'required',
             'debit' => 'required_without_all:credit',
             'credit' => 'required_without_all:debit',
         ]);
@@ -87,7 +90,7 @@ class TransactionController extends Controller
         return back();
     }
 
-    function removeItem($id)
+    public function removeItem($id)
     {
         $item = TransactionDetail::find($id);
         $item->delete();

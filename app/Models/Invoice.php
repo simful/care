@@ -5,16 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 class Invoice extends Model
 {
     public $connection = 'tenant';
-    public $fillable = [
-        'customer_id',
-        'user_id',
-        'date',
-        'due_date',
-        'reference_number',
-        'limit',
-        'status',
-        'notes'
-    ];
+    public $guarded = [];
 
     public static $rules = [
         //'customer_id' => 'required',

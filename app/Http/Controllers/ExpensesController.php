@@ -4,24 +4,26 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Expense;
-use Account, Transaction, TransactionDetail;
+use Account;
 use Auth;
 
 class ExpensesController extends Controller
 {
     public function index()
-	{
+    {
         $expenses = Expense::orderBy('created_at', 'desc')
             ->paginate(15);
-		return view('expenses.index', compact('expenses'));
-	}
+
+        return view('expenses.index', compact('expenses'));
+    }
 
     public function create()
     {
         $is_edit = false;
-        $expense = new Expense;
+        $expense = new Expense();
         $source_accounts = Account::whereAccountGroupId(1)->get();
         $expense_accounts = Account::whereAccountGroupId(9)->get();
+
         return view('expenses.form', compact('expense', 'source_accounts', 'expense_accounts', 'is_edit'));
     }
 
@@ -46,6 +48,7 @@ class ExpensesController extends Controller
         $expense = Expense::find($id);
         $source_accounts = Account::whereAccountGroupId(1)->get();
         $expense_accounts = Account::whereAccountGroupId(9)->get();
+
         return view('expenses.form', compact('expense', 'source_accounts', 'expense_accounts', 'is_edit'));
     }
 

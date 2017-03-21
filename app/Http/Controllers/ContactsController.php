@@ -23,7 +23,8 @@ class ContactsController extends Controller
         }
 
         $contacts = $contacts->paginate();
-        return view('contacts.index', compact('contacts'));
+
+        return viewOrJson('contacts.index', compact('contacts'));
     }
 
     /**
@@ -34,14 +35,16 @@ class ContactsController extends Controller
     public function create()
     {
         $is_edit = false;
-        $contact = new Contact;
+        $contact = new Contact();
+
         return view('contacts.form', compact('contact', 'is_edit'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -55,44 +58,49 @@ class ContactsController extends Controller
         $contact->save();
 
         if ($request->has('next')) {
-            return redirect($request->get('next') . '?contact_id=' . $contact->id)
+            return redirect($request->get('next').'?contact_id='.$contact->id)
                 ->with('message', trans('contact.add_success'));
         }
 
-        return redirect('contacts')
+        return redirect('contacts', compact('contact'))
             ->with('message', trans('contact.add_success'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         $contact = Contact::find($id);
+
         return view('contacts.show', compact('contact'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         $is_edit = true;
         $contact = Contact::find($id);
+
         return view('contacts.form', compact('contact', 'is_edit'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -107,7 +115,7 @@ class ContactsController extends Controller
         $contact->save();
 
         if (Request::has('next')) {
-            return redirect(Request::get('next') . '?contact_id=' . $contact->id)
+            return redirect(Request::get('next').'?contact_id='.$contact->id)
                 ->with('message', trans('contact.add_success'));
         }
 
@@ -118,7 +126,8 @@ class ContactsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

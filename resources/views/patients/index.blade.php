@@ -1,45 +1,44 @@
 @extends('layouts.app')
-@section('content')
-	<div class="box box" style="margin-top: 5px;">
-		<div class="box-header">Daftar Pasien</div>
-		<div class="box-body">
-			<table class=" table table-bordered table-hover table-striped">
-				<thead>
-					<th>No RM</th>
-					<th>Nama</th>
-					<th>Tgl Lahir</th>
-					<th>Pekerjaan</th>
-					<th>Pernikahan</th>
-					<th>Agama</th>
-					<th>Alamat</th>
-					<th style="width: 15%;">Opsi</th>
-				</thead>
 
-				@if (count($patients) >= 1)
-					@foreach($patients as $p)
-						<tr>
-							<td>{{ $p->med_rec }}</td>
-							<td>{{ $p->name }}</td>
-							<td>{{ $p->birth_date }}</td>
-							<td>{{ $p->job }}</td>
-							<td>{{ $p->marriage }}</td>
-							<td>{{ $p->religion }}</td>
-							<td>{{ $p->address }}</td>
-							<td>
-								<div class="btn btn-group pull-right">
-								<a href="{{url('/patient',$p->med_rec)}}" class="btn btn-primary btn-sm"><span class="fa fa-user"></span></a>
-								<a href="#" class="btn btn-warning btn-sm"><span class="fa fa-edit"></span></a>
-								<a href="#" class="btn btn-danger btn-sm"><span class="fa fa-trash"></span></a>
-								</div>
-							</td>
-						</tr>
-					@endforeach
-				@else
-					<tr>
-						<td colspan="8" style="text-align: center;">Belum Ada Data</td>
-					</tr>
-				@endif
-			</table>
+@section('title')
+	Patients
+@endsection
+
+@section('content')
+	<div class="container">
+		<h2>@yield('title')</h2>
+
+		<div class="mbot20">
+			<a href="{{ url('patients/create') }}" class="btn btn-primary">
+				<i class="fa fa-plus fa-icon"></i>
+				New Patient
+			</a>
+
+			<form class="form-inline pull-right">
+				@include('partials.search-form')
+			</form>
+		</div>
+
+		<div class="box" style="margin-top: 5px;">
+			<div class="box-body">
+
+				@foreach ($patients as $patient)
+					<a href="{{ url("patients/$patient->id") }}">
+						<div class="media">
+							<div class="media-left">
+								<img class="media-object" src="{{ $patient->avatar }}" alt="{{ $patient->name }}" style="height: 64px; width: 64px">
+							</div>
+							<div class="media-body">
+								<h4 class="media-heading">{{ $patient->name }}</h4>
+								<p>{{ $patient->city }}</p>
+							</div>
+						</div>
+					</a>
+					<hr>
+				@endforeach
+
+				{{ $patients->links() }}
+			</div>
 		</div>
 	</div>
 @endsection

@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use Product;
 use Image;
 use Auth;
-use File, Storage;
+use File;
+use Storage;
 
 class ProductsController extends Controller
 {
@@ -27,7 +28,7 @@ class ProductsController extends Controller
 
         $products = $products->paginate(5);
 
-        return view('products.index', compact('products'));
+        return viewOrJson('products.index', compact('products'));
     }
 
     /**

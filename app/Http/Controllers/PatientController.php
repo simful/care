@@ -3,18 +3,35 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Patient;
-use App\Visit;
-use App\rec_procedure;
-use App\rec_drug;
+use Patient;
+use Appointment;
+use DrugRecord;
+use ProcedureRecord;
 
 class PatientController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $patients = Patient::orderby('id', 'desc')->get();
+        if ($request->has('q')) {
+            $q = $request->get('q');
+
+            $patients = Patient::orderBy('name')
+                ->orWhere('name', 'LIKE', "%$q%")
+                ->paginate();
+        } else {
+            $patients = Patient::orderBy('name')
+                ->paginate();
+        }
 
         return view('patients.index', compact('patients'));
+    }
+
+    public function create()
+    {
+        return view('patients.form', [
+            'patient' => new Patient(),
+            'isEdit' => false,
+        ]);
     }
 
     public function store(Request $request)
@@ -22,23 +39,52 @@ class PatientController extends Controller
         $data = $request->except('_token');
 
         $this->validate($request, [
-            'id' => 'required',
-            'nik' => 'required',
-            'name' => 'required'
+            'name' => 'required',
         ]);
 
         Patient::create($data);
 
-        return redirect('/patient');
+        return redirect('patients');
     }
 
     public function show($id)
     {
         $patient = Patient::find($id);
-        $visits = Visit::where('med_rec', $med_rec)->get();
-        $drug = rec_drug::where('med_rec', $med_rec)->get();
-        $procedure = rec_procedure::where('med_rec', $med_rec)->get();
+        $Appointments = Appointment::wherePatientId($id)->get();
+        //$drugs = DrugRecord::wherePatientId($id)->get();
+        //$procedures = ProcedureRecord::wherePatientId($id)->get();
 
-        return view('patients.show', compact(['patient', 'visits', 'procedure', 'drug']));
+        return view('patients.show', compact('patient', 'appointments', 'procedures', 'drugs'));
+    }
+
+    public function edit($id)
+    {
+        $patient = Patient::find($id);
+
+        return view('patients.form', [
+            'patient' => $patient,
+            'isEdit' => true,
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+        ]);
+
+        $patient = Patient::find($id);
+        $patient->fill($request->all());
+        $patient->save();
+
+        return redirect('patients');
+    }
+
+    public function destroy($id)
+    {
+        $patient = Patient::find($id);
+        $patient->delete();
+
+        return redirect('patients');
     }
 }

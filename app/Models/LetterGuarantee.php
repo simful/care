@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 class LetterGuarantee extends Model
 {
     public $connection = 'tenant';
-    public $fillable = ['supplier_id', 'date', 'number', 'ref_number', 'remarks'];
+    public $guarded = [];
 
     public static $rules = [];
 
