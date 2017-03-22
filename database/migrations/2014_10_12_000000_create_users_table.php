@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('sip')->nullable();
 
             // prefs
-            $table->json('settings')->nullable();
+            $table->text('settings')->nullable();
 
             $table->rememberToken();
             $table->timestamps();

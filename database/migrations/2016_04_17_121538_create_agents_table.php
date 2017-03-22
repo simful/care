@@ -28,7 +28,7 @@ class CreateAgentsTable extends Migration
             $table->integer('billing_cycle');
             $table->integer('referred_by')->default(0)->index();
             $table->integer('is_billed')->default(0)->index();
-            $table->json('settings')->nullable();
+            $table->text('settings')->nullable();
             $table->timestamps();
         });
     }
